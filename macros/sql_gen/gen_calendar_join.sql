@@ -8,7 +8,7 @@
             on cast(base_model.{{group_values.timestamp}} as date) > dateadd({{group_values.window.period}}, -{{group_values.window.count}}, calendar.date_day)
             and cast(base_model.{{group_values.timestamp}} as date) <= calendar.date_day
         {%- elif grain == 'fifteen_minute' %}
-            on dateadd(minute, floor(datediff(minute, 0, {{group_values.timestamp}}) / 15.0, 0) * 15, 0) = calendar.date_fifteen_minute
+            on dateadd(minute, floor(datediff(minute, date_trunc('hour', {{group_values.timestamp}}), {{group_values.timestamp}}) / 15.0, 0) * 15, date_trunc('hour', {{group_values.timestamp}})) = calendar.date_fifteen_minute
         {%- elif grain == 'hour' %}
             on date_trunc('hour', {{group_values.timestamp}}) = calendar.date_hour
         {%- else %}
@@ -23,7 +23,7 @@
             on cast(base_model.{{group_values.timestamp}} as date) > date_sub(calendar.date_day, interval {{group_values.window.count}} {{group_values.window.period}})
             and cast(base_model.{{group_values.timestamp}} as date) <= calendar.date_day
         {%- elif grain == 'fifteen_minute' -%}
-            on dateadd(minute, floor(datediff(minute, 0, {{group_values.timestamp}}) / 15.0, 0) * 15, 0) = calendar.date_fifteen_minute
+            on dateadd(minute, floor(datediff(minute, date_trunc('hour', {{group_values.timestamp}}), {{group_values.timestamp}}) / 15.0, 0) * 15, date_trunc('hour', {{group_values.timestamp}})) = calendar.date_fifteen_minute
         {%- elif grain == 'hour' -%}
             on date_trunc('hour', {{group_values.timestamp}}) = calendar.date_hour
         {%- else %}
@@ -37,7 +37,7 @@
             on cast(base_model.{{group_values.timestamp}} as date) > calendar.date_day - interval '{{group_values.window.count}} {{group_values.window.period}}'
             and cast(base_model.{{group_values.timestamp}} as date) <= calendar.date_day
         {%- elif grain == 'fifteen_minute' -%}
-            on dateadd(minute, floor(datediff(minute, 0, {{group_values.timestamp}}) / 15.0, 0) * 15, 0) = calendar.date_fifteen_minute
+            on dateadd(minute, floor(datediff(minute, date_trunc('hour', {{group_values.timestamp}}), {{group_values.timestamp}}) / 15.0, 0) * 15, date_trunc('hour', {{group_values.timestamp}})) = calendar.date_fifteen_minute
         {%- elif grain == 'hour' -%}
             on date_trunc('hour', {{group_values.timestamp}}) = calendar.date_hour
         {%- else %}
@@ -51,7 +51,7 @@
             on cast(base_model.{{group_values.timestamp}} as date) > dateadd({{group_values.window.period}}, -{{group_values.window.count}}, calendar.date_day)
             and cast(base_model.{{group_values.timestamp}} as date) <= calendar.date_day
         {%- elif grain == 'fifteen_minute' -%}
-            on dateadd(minute, floor(datediff(minute, 0, {{group_values.timestamp}}) / 15.0, 0) * 15, 0) = calendar.date_fifteen_minute
+            on dateadd(minute, floor(datediff(minute, date_trunc('hour', {{group_values.timestamp}}), {{group_values.timestamp}}) / 15.0, 0) * 15, date_trunc('hour', {{group_values.timestamp}})) = calendar.date_fifteen_minute
         {%- elif grain == 'hour' -%}
             on date_trunc('hour', {{group_values.timestamp}}) = calendar.date_hour
         {%- else %}
