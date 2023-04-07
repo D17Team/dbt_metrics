@@ -8,14 +8,14 @@ with calendar as (
     {# This CTE creates our base calendar and then limits the date range for the 
     start and end date provided by the macro call -#}
     select 
-    {% if grain == '15min' %}
-        to_timestamp_ntz(concat(date_day, ' ', hour, ':', minute), 'YYYY-MM-DD HH24:MI') as date_15min,
+    {% if grain == 'fifteen_minute' %}
+        to_timestamp_ntz(concat(date_day, ' ', hour, ':', minute), 'YYYY-MM-DD HH24:MI') as date_fifteen_minute,
     {% elif grain == 'hour' %}
         to_timestamp_ntz(concat(date_day, ' ', hour), 'YYYY-MM-DD HH24') as date_hour,
     {% endif %}
         c.* 
     from {{ calendar_tbl }} c
-    {% if grain == 'hour' or grain == '15min'%}
+    {% if grain == 'hour' or grain == 'fifteen_minute'%}
         cross join
         (
         values
@@ -45,7 +45,7 @@ with calendar as (
             ('23')
     ) hours(hour)
     {% endif %}
-    {% if grain == '15min'%}
+    {% if grain == 'fifteen_minute'%}
         cross join
         (
         values

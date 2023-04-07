@@ -12,8 +12,8 @@
                 the same windows & filters, we can base the conditional off of the first 
                 value in the list because the order doesn't matter. 
             -#}
-            {%- if grain == '15min' %}
-                date_trunc('min', {{group_values.timestamp}}) as metric_date_15min,
+            {%- if grain == 'fifteen_minute' %}
+                date_trunc('min', {{group_values.timestamp}}) as metric_date_fifteen_minute,
             {% elif grain == 'hour' %}
                 date_trunc('hour', {{group_values.timestamp}}) as metric_date_hour,
             {% else %}
