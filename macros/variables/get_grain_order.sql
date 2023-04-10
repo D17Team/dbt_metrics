@@ -3,5 +3,5 @@
 {% endmacro %}
 
 {% macro default__get_grain_order() %}
-    {% do return (['fifteen_minute', 'hour', 'day', 'week', 'month', 'quarter', 'year']) %}
+    {% do return (['quarter_hour', 'hour', 'day', 'week', 'month', 'quarter', 'year']) %}
 {% endmacro %}
